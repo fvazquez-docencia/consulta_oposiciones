@@ -1,4 +1,3 @@
-import 'package:clima/views/loading_view.dart';
 import 'package:consulta_oposiciones/views/tribunal_message_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

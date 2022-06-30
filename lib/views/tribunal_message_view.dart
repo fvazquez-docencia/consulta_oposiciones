@@ -1,4 +1,5 @@
 import 'package:consulta_oposiciones/view_models/tribunal_message_view_model.dart';
+import 'package:consulta_oposiciones/utils/url_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -30,12 +31,18 @@ class _TribunalMessageViewState extends State<TribunalMessageView> {
 
   void initView(){
     try{
+
+      URLUtils utils = URLUtils();
+    final response = utils.fetchPost();
+    print(response);
+
+      /*
       WeatherModel wm = await viewModel.localizeUserAndGetWeather();
       print(wm);
       LocationViewModel locationViewModel=LocationViewModel(wm);
       Navigator.push(context, MaterialPageRoute(builder: (context){
         return LocationView(viewModel: locationViewModel);
-      }));
+      }));*/
     }catch(error){
       Alert(
         context: context,

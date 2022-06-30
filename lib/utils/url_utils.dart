@@ -4,6 +4,9 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+
+class URLUtils{
+
 Future<http.Response> fetchPost() async {
   final url = Uri.parse('https://www.edu.xunta.gal/oposicions/ProcesaConsultaPublica.do');
   final response = await http.post(
@@ -55,3 +58,6 @@ Future<http.Response> fetchPost() async {
     );
   }
 }*/
+
+
+}
