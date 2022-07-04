@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:consulta_oposiciones/view_models/tribunal_message_view_model.dart';
 import 'package:consulta_oposiciones/utils/url_utils.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 var _htmlContent = "<div>Hola</div>";
+var _htmlAnterior = "";
 class TribunalMessageView extends StatefulWidget {
 
   const TribunalMessageView({Key? key}) : super(key: key);
@@ -42,13 +45,39 @@ class _TribunalMessageViewState extends State<TribunalMessageView> {
     try{
 print("Prueba");
       URLUtils utils = URLUtils();
-    final Future<String> response = utils.fetchPost();
-    response.then((String result) {
-
-      _htmlContent =result;
-
-    });
-
+      var mostrar=0;
+      while(true) {
+        print("Llamando a la web");
+        final Future<String> response = utils.fetchPost();
+        response.then((String result) {
+          _htmlContent = result;
+        });
+        print("Durmiendo 1 minuto");
+        mostrar++;
+        sleep(const Duration(minutes: 1));
+        if(_htmlAnterior==""){
+          _htmlAnterior = _htmlContent;
+        }
+        if(_htmlAnterior!=_htmlContent || mostrar == 1){
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: "Cambio",
+            desc: "Los datos de informática han cambiado",
+            buttons: [
+              DialogButton(
+                child: Text(
+                  "Ok",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                width: 120,
+              )
+            ],
+          ).show();
+          break;
+        }
+      }
 
       /*
       WeatherModel wm = await viewModel.localizeUserAndGetWeather();
