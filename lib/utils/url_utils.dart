@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
 
 
 class URLUtils{
 
-Future<http.Response> fetchPost() async {
+Future<String> fetchPost() async {
   final url = Uri.parse('https://www.edu.xunta.gal/oposicions/ProcesaConsultaPublica.do');
   final response = await http.post(
     url,
-    headers: {HttpHeaders.authorizationHeader: "Basic your_api_token_here",
+    headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'POST': '/oposicions/ProcesaConsultaPublica.do HTTP/1.1:',
       'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -37,7 +38,8 @@ Future<http.Response> fetchPost() async {
     },
     body: "accion=&consulta=si&inscripcion=&cod_documento=&quenda=&ligazon=&data_publicacion=&espcodxun=590107&verBaremoProvTribunal=N&verBaremoDefTribunal=N&verBaremoProvEspecialidade=N&verBaremoDefEspecialidade=N&convocatoria=31%2F01%2F2022S&cod_corpo=590&cod_especialidade=107&cod_tribunal=3924",
   );
-  return response;
+  debugPrint(response.body);
+  return response.body;
 
 }
 
